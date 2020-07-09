@@ -11,7 +11,7 @@ exports.createTask = async (req, res) => {
     }
     
     try {
-        // extrar el nombre del proyecto
+        // extrar el id del campo project del proyecto
         const {project} = req.body
 
         // validar si existe un proyecto previo
@@ -40,7 +40,7 @@ exports.createTask = async (req, res) => {
 
 exports.getAlltask = async (req, res) => {
     try {
-        // extrar el nombre del proyecto
+        // extrar el id del campo project del proyecto
         const {project} = req.body
 
         // validar si existe un proyecto previo x id
@@ -55,7 +55,7 @@ exports.getAlltask = async (req, res) => {
         }
 
         // buscar tareas por proyecto
-        const tasks = await Task.find({ project: project });
+        const tasks = await Task.find({ project });
         res.json({tasks});
 
         
@@ -107,7 +107,7 @@ exports.updateTask = async (req, res) => {
 
 exports.deleteTask = async (req, res) => {
     try {
-        // extrar el nombre del proyecto
+        // extrar el id del campo project del proyecto
         const {project} = req.body
 
         // validar si existe una tarea x id
