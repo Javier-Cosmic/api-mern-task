@@ -1,11 +1,15 @@
 const express = require('express');
 const connection = require('./config/db');
+const cors = require('cors');
 
 // crear servidor
 const app = express();
 
 //crear conexion con mongo db
 connection();
+
+//habilitar cors como funcion
+app.use(cors());
 
 // habilitar express.json
 app.use(express.json({extended: true}));

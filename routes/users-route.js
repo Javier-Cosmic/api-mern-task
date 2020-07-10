@@ -4,7 +4,7 @@ const userController = require('../controllers/users-controller');
 const {check} = require('express-validator');
 const auth = require('../middleware/auth');
 
-// api/users    --> end point por post (enviar usuario)
+// api/user    --> end point por post (enviar usuario)
 router.post('/',
     [ //validacion de los campos del modelo
         check('names', 'El nombre es obligatorio.').not().isEmpty(),
