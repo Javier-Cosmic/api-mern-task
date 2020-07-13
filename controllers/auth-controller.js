@@ -26,7 +26,7 @@ exports.authUser = async (req, res) => {
 
         // si el password no es correcto
         if(!passOk){
-            return res.status(400).json({status: 'Ok', msg: 'Password incorrecto.'})
+            return res.status(400).json({status: 'Error', msg: 'Password incorrecto.'})
         }
 
         //si el password es correcto
@@ -37,7 +37,7 @@ exports.authUser = async (req, res) => {
         };
 
         jwt.sign(payload, process.env.JWT_SECRET, {
-            expiresIn: 1500
+            expiresIn: 600
 
         }, (error, token) => {
             if (error) throw error;
@@ -49,5 +49,19 @@ exports.authUser = async (req, res) => {
 
     } catch (error) {
         console.log(error);
+    }
+}
+
+// saber que usuario está autenticado
+exports.userIsAuth = async (req, res) => {
+    try {
+        
+        // el id del usuario con token esta almacenado en el req.user.id
+        const user = await User.findById(req.user.id).select('-password');   // no mostrar password
+        res.json({user});
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ status: 'Error', msg: 'Error de servidor.'})
     }
 }
