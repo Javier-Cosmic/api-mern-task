@@ -22,7 +22,7 @@ exports.createProject = async (req, res) => {
         res.json(project);
         
     } catch (error) {
-        console.log(error);
+        
         res.status(500).json({ status: 'Error', msg: 'Ha ocurrido un error interno.'})
     }
 }
@@ -34,7 +34,7 @@ exports.getAllproject = async (req, res) => {
         res.json({projects});
 
     } catch (error) {
-        console.log(error);
+        
         res.status(500).json({status: 'Error', msg: 'Ocurrió un error.'})
     }
 }
@@ -77,7 +77,7 @@ exports.updateProject = async (req, res) => {
         res.json({ project })
         
     } catch (error) {
-        console.log(error);
+      
         res.status(500).json({ status: 'Error', msg: 'Error de servidor, intenta mas tarde.'});
     }
 }
@@ -103,7 +103,7 @@ exports.deleteProject = async (req, res) => {
         res.json({ status: 'Ok', msg: 'Proyecto eliminado.'});
 
     } catch (error) {
-        console.log(error)
+        
         res.status(500).json({ status: 'Error', msg: 'Error de servidor.'})
     }
 }

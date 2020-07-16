@@ -33,7 +33,7 @@ exports.createTask = async (req, res) => {
         res.json({task});
         
     } catch (error) {
-        console.log(error);
+        
         res.status(500).json({ status: 'Error', msg: 'Hubo un error de servidor.'})
     }
 }
@@ -41,7 +41,7 @@ exports.createTask = async (req, res) => {
 exports.getAlltask = async (req, res) => {
     try {
         // extrar el id del campo project del proyecto
-        const {project} = req.body
+        const {project} = req.query
 
         // validar si existe un proyecto previo x id
         const projectExists = await Project.findById( project );
@@ -55,12 +55,12 @@ exports.getAlltask = async (req, res) => {
         }
 
         // buscar tareas por proyecto
-        const tasks = await Task.find({ project });
+        const tasks = await Task.find({ project }).sort({ date: -1 });
         res.json({tasks});
 
         
     } catch (error) {
-        console.log(error)
+        
         res.status(500).json({ status: 'Error', msg: 'Ha ocurrido un error de servidor.'})
     }
 }
@@ -87,12 +87,8 @@ exports.updateTask = async (req, res) => {
         // crear el nuevo objeto editado
         const newTask = {};
 
-        if(name){
-            newTask.name = name;
-        }
-        if(state){
-            newTask.state = state;
-        }
+        newTask.name = name;
+        newTask.state = state;
 
         //guardar tarea
         task = await Task.findOneAndUpdate({ _id: req.params.id}, newTask, { new: true});
@@ -100,7 +96,7 @@ exports.updateTask = async (req, res) => {
         res.json({task});
 
     } catch (error) {
-        console.log(error)
+        
         res.status(500).json({ status: 'Error', msg: 'Error de servidor.'})
     }
 }
@@ -108,7 +104,7 @@ exports.updateTask = async (req, res) => {
 exports.deleteTask = async (req, res) => {
     try {
         // extrar el id del campo project del proyecto
-        const {project} = req.body
+        const {project} = req.query
 
         // validar si existe una tarea x id
         const task = await Task.findById(req.params.id);
@@ -128,7 +124,7 @@ exports.deleteTask = async (req, res) => {
         res.json({ status: 'Ok', msg: 'Tarea eliminada.'});
 
     } catch (error) {
-        console.log(error)
+       
         res.status(500).json({ status: 'Error', msg: 'Ha ocurrido un error de servidor.'})
     }
 }

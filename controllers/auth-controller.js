@@ -37,7 +37,7 @@ exports.authUser = async (req, res) => {
         };
 
         jwt.sign(payload, process.env.JWT_SECRET, {
-            expiresIn: 600
+            expiresIn: 1000
 
         }, (error, token) => {
             if (error) throw error;
@@ -48,7 +48,7 @@ exports.authUser = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 }
 
@@ -61,7 +61,7 @@ exports.userIsAuth = async (req, res) => {
         res.json({user});
 
     } catch (error) {
-        console.log(error);
+        
         res.status(500).json({ status: 'Error', msg: 'Error de servidor.'})
     }
 }
